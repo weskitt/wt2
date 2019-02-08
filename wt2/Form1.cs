@@ -27,7 +27,7 @@ namespace wt2
             for (int i = 0; i < Pview.Width; i++)
             {
                 Y_Value xv = new Y_Value(0, 0);
-                AllData.pArray.Add(xv);
+                AllData.yArray.Add(xv);
             }
 
             return Pview.Width;
