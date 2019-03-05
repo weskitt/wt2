@@ -31,11 +31,12 @@ namespace wt2
         public int arg2Model; //凹凸模式
         public int arg3Slope; //斜率
         public int arg4Duration; //持续时长
+        public int arg5Factor; //模拟突变因子
     }
 
     public class Funcs
     {
-        public bool GenAnalogData(float )
+        public bool GenAnalogData(float pre)
         {
 
             return false;
