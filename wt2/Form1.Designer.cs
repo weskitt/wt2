@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.Pview = new System.Windows.Forms.Panel();
+            this.DrawModBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Pview
@@ -39,6 +40,18 @@
             this.Pview.TabIndex = 0;
             this.Pview.Paint += new System.Windows.Forms.PaintEventHandler(this.Pview_Paint);
             // 
+            // DrawModBtn
+            // 
+            this.DrawModBtn.AutoSize = true;
+            this.DrawModBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.DrawModBtn.Location = new System.Drawing.Point(1068, 12);
+            this.DrawModBtn.Name = "DrawModBtn";
+            this.DrawModBtn.Size = new System.Drawing.Size(81, 28);
+            this.DrawModBtn.TabIndex = 1;
+            this.DrawModBtn.Text = "DrawMod";
+            this.DrawModBtn.UseVisualStyleBackColor = true;
+            this.DrawModBtn.Click += new System.EventHandler(this.DrawModPoint);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -46,17 +59,20 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1161, 659);
+            this.Controls.Add(this.DrawModBtn);
             this.Controls.Add(this.Pview);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Panel Pview;
+        private System.Windows.Forms.Button DrawModBtn;
     }
 }
 
