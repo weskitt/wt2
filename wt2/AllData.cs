@@ -44,8 +44,7 @@ namespace wt2
         public static int Concave = -1; //内凹模式
         public static int Convex = 1; //外凸模式
         public static int Smooth = 0;//
-        public static int FCpos = 0;
-        public static int FCvalue = 1;
+
         public static int DataLength = 0;
          
         public static ArrayList yArray = new ArrayList();
@@ -59,6 +58,10 @@ namespace wt2
 
     public class Funcs
     {
+        public static int ModEND = -1;
+        public static int FCpos = 0;
+        public static int FCvalue = 1;
+
         public void InitSimpleMods()
         {
             Mod mod = new Mod {
@@ -68,10 +71,10 @@ namespace wt2
                 arg5Factor = 100
             };
             mod.arg5Factor = 50;
-            mod.arg6FC[1, AllData.FCpos] = 0.2;
-            mod.arg6FC[2, AllData.FCpos] = 1;
-            //分2段 0 - 0.2 - 1 ，默认每段FC=0
-            mod.arg6FC[1, AllData.FCvalue] = 20;//第一段0 - 0.2 配置FC=20
+            mod.arg6FC[1, FCpos] = 0.2;
+            mod.arg6FC[2, FCpos] = ModEND;
+            //分1段 0 - 0.2 - 1 ，默认每段FC=0
+            mod.arg6FC[0, FCvalue] = 20;//第一段0 - 0.2 配置FC=20
 
             Mod mod1 = new Mod{
                 arg2Model = AllData.Convex,
@@ -80,21 +83,21 @@ namespace wt2
                 arg5Factor = 100
             };
             mod1.arg5Factor = 50;
-            mod1.arg6FC[1, AllData.FCpos] = 0.8;
-            mod1.arg6FC[2, AllData.FCpos] = 1;
+            mod1.arg6FC[1, FCpos] = 0.8;
+            mod1.arg6FC[2, FCpos] = ModEND;
             //分2段 0 - 0.8 - 1 ，默认每段FC=0
-            mod1.arg6FC[2, AllData.FCvalue] = 20;//第二段0.8 - 1 配置FC=20
+            mod1.arg6FC[1, FCvalue] = 20;//第二段0.8 - 1 配置FC=20
 
             AllData.SimpleModArray.Add(mod);
             AllData.SimpleModArray.Add(mod1);
         }
-        public bool GenAnalogData(float pre)
+        public bool GenAnalogData(float pre)  //modEnd 或 1 跳出
         {
             foreach (Mod mod in AllData.SimpleModArray)
             {
                 double[] pos = new double[mod.];
-                double locBgn = mod.arg6FC[1, AllData.FCpos] * AllData.DataLength;
-                double locEnd = mod.arg6FC[2, AllData.FCpos] * AllData.DataLength;
+                double locBgn = mod.arg6FC[1, FCpos] * AllData.DataLength;
+                double locEnd = mod.arg6FC[2, FCpos] * AllData.DataLength;
 
             }
             return false;
