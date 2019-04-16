@@ -15,28 +15,19 @@ namespace wt2
             this.arg1 = arg1;
         }
     }
+    public class Session
+    {
+        public double duration; //占比0-1
+        public int BaseFactor;
+        public int VariantArg;
+    } 
     public class Mod  //分段作用
     {
-        public int arg2Model; //凹凸模式
-        public int arg2PRI;
-        public int arg3K; //斜率
-        public int arg3PRI;
-        public double arg4Duration; //持续时长,按比例算
-        public int arg5Factor; //倍增变化因子
-        public double[ , ] arg6FC; //因子变化参数,实现变化曲线
-        public int arg6PRI;
-        public Mod()
-        {
-            this.arg2PRI = 0;
-            this.arg3PRI = 0;
-            this.arg6PRI = 0;
-
-            this.arg6FC = new double[6, 2]
-            {
-                {0, 0 },  {0, 0 },  {0, 0 },
-                {0, 0 },  {0, 0 },  {0, 0 }
-            };
-        }
+        public int argModel; //凹凸模式
+        public int argK; //斜率
+        public double begin;  // 取值范围0-1 
+        public double ModDuration; //总持续时长 
+        public ArrayList sessionList = new ArrayList(); 
     }
 
     public class AllData //提供全局静态参数
@@ -64,40 +55,58 @@ namespace wt2
 
         public void InitSimpleMods()
         {
+            Session sess;
+
             Mod mod = new Mod {
-                arg2Model = AllData.Concave,
-                arg3K = 1,
-                arg4Duration = 0.3,
-                arg5Factor = 100
+                argModel = AllData.Concave,
+                argK = 1,
+                begin = 0.2,
+                ModDuration = 0.3
             };
-            mod.arg5Factor = 50;
-            mod.arg6FC[1, FCpos] = 0.2;
-            mod.arg6FC[2, FCpos] = ModEND;
-            //分1段 0 - 0.2 - 1 ，默认每段FC=0
-            mod.arg6FC[0, FCvalue] = 20;//第一段0 - 0.2 配置FC=20
+            mod.sessionList.Add(sess = new Session{
+                BaseFactor = 100,
+                duration = 0.5,
+                VariantArg = 0
+            });
+            mod.sessionList.Add(sess = new Session
+            {
+                BaseFactor = 100,
+                duration = 0.5,
+                VariantArg = 200
+            });
 
-            Mod mod1 = new Mod{
-                arg2Model = AllData.Convex,
-                arg3K = -1,
-                arg4Duration = 0.3,
-                arg5Factor = 100
+            Mod mod1 = new Mod
+            {
+                argModel = AllData.Convex,
+                argK = -1,
+                begin = 0.8,
+                ModDuration = 0.3
             };
-            mod1.arg5Factor = 50;
-            mod1.arg6FC[1, FCpos] = 0.8;
-            mod1.arg6FC[2, FCpos] = ModEND;
-            //分2段 0 - 0.8 - 1 ，默认每段FC=0
-            mod1.arg6FC[1, FCvalue] = 20;//第二段0.8 - 1 配置FC=20
-
+            mod1.sessionList.Add(sess = new Session
+            {
+                BaseFactor = 100,
+                duration = 0.5,
+                VariantArg = 0
+            });
+            mod1.sessionList.Add(sess = new Session
+            {
+                BaseFactor = 100,
+                duration = 0.5,
+                VariantArg = 150
+            });
+            
             AllData.SimpleModArray.Add(mod);
             AllData.SimpleModArray.Add(mod1);
         }
-        public bool GenAnalogData(float pre)  //modEnd 或 1 跳出
+        public bool GenAnalogData(double pre)  //modEnd 或 1 跳出
         {
-            foreach (Mod mod in AllData.SimpleModArray)
+            foreach (Mod mod in AllData.SimpleModArray)  //迭代每一个mod
             {
-                double[] pos = new double[mod.];
-                double locBgn = mod.arg6FC[1, FCpos] * AllData.DataLength;
-                double locEnd = mod.arg6FC[2, FCpos] * AllData.DataLength;
+                //session check
+                foreach(Session sess in mod.sessionList)
+                {
+
+                }
 
             }
             return false;
