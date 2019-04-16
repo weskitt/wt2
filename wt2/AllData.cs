@@ -26,7 +26,7 @@ namespace wt2
         public int argModel; //凹凸模式
         public int argK; //斜率
         public double begin;  // 取值范围0-1 
-        public double ModDuration; //总持续时长 
+        public double ModDuration; //总持续时长 取值范围0-1 
         public ArrayList sessionList = new ArrayList(); 
     }
 
@@ -102,10 +102,17 @@ namespace wt2
         {
             foreach (Mod mod in AllData.SimpleModArray)  //迭代每一个mod
             {
-                //session check
+                int CurLoc = (int)(mod.begin * AllData.DataLength); 
+                int ModLength = (int)(mod.ModDuration * AllData.DataLength);
                 foreach(Session sess in mod.sessionList)
                 {
+                    int SessEndLoc = CurLoc + (int)(sess.duration * ModLength);
+                    while(CurLoc<SessEndLoc)
+                    {
+                        AllData.yArray[CurLoc] .= sess.BaseFactor;
 
+                        ++CurLoc;
+                    }
                 }
 
             }
