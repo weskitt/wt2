@@ -28,11 +28,12 @@ namespace wt2
             g.Clear(Color.Black);//清楚画布
             g.DrawLine(pen, 0, Pview.Height / 2, Pview.Width, Pview.Height / 2);
 
-            for (int i = 0; i < Pview.Width; i++)
-            {
-                Y_Value xv = new Y_Value(0, 0);
-                AllData.yArray.Add(xv);
-            };
+            // for (int i = 0; i < Pview.Width; i++)
+            //{
+            //    Y_Value xv = new Y_Value(0, 0);
+            //    AllData.yArray.Add(xv);
+            //};
+            
 
             AllData.DataLength = Pview.Width;
             return Pview.Width;

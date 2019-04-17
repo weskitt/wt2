@@ -38,7 +38,7 @@ namespace wt2
 
         public static int DataLength = 0;
          
-        public static ArrayList yArray = new ArrayList();
+        public static ArrayList yArray;
         public static ArrayList ModArray = new ArrayList();
 
         public static ArrayList SimpleModArray = new ArrayList();
@@ -100,6 +100,8 @@ namespace wt2
         }
         public bool GenAnalogData(double pre)  //modEnd 或 1 跳出
         {
+            int[] yValue = new int[AllData.DataLength];
+
             foreach (Mod mod in AllData.SimpleModArray)  //迭代每一个mod
             {
                 int CurLoc = (int)(mod.begin * AllData.DataLength); 
@@ -107,15 +109,19 @@ namespace wt2
                 foreach(Session sess in mod.sessionList)
                 {
                     int SessEndLoc = CurLoc + (int)(sess.duration * ModLength);
+                    int bValue = 0;
                     while(CurLoc<SessEndLoc)
                     {
-                        AllData.yArray[CurLoc] .= sess.BaseFactor;
+                        sess.BaseFactor += sess.VariantArg;
+                        bValue += sess.BaseFactor;
+                        yValue[CurLoc] = bValue;
 
                         ++CurLoc;
                     }
                 }
 
             }
+            AllData.yArray = new ArrayList(yValue);
             return false;
         }
     }
