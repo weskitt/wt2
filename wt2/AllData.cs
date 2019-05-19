@@ -30,7 +30,7 @@ namespace wt2
         public ArrayList sessionList = new ArrayList(); 
     }
 
-    public class AllData //提供全局静态参数
+    public class WAData //提供全局静态参数
     {
         public static int Concave = -1; //内凹模式
         public static int Convex = 1; //外凸模式
@@ -58,7 +58,7 @@ namespace wt2
             Session sess;
 
             Mod mod = new Mod {
-                argModel = AllData.Concave,
+                argModel = WAData.Concave,
                 argK = 1,
                 begin = 0.2,
                 ModDuration = 0.3
@@ -77,7 +77,7 @@ namespace wt2
 
             Mod mod1 = new Mod
             {
-                argModel = AllData.Convex,
+                argModel = WAData.Convex,
                 argK = -1,
                 begin = 0.8,
                 ModDuration = 0.3
@@ -95,17 +95,17 @@ namespace wt2
                 VariantArg = 150
             });
             
-            AllData.SimpleModArray.Add(mod);
-            AllData.SimpleModArray.Add(mod1);
+            WAData.SimpleModArray.Add(mod);
+            WAData.SimpleModArray.Add(mod1);
         }
         public bool GenAnalogData(double pre)  //modEnd 或 1 跳出
         {
-            int[] yValue = new int[AllData.DataLength];
+            int[] yValue = new int[WAData.DataLength];
 
-            foreach (Mod mod in AllData.SimpleModArray)  //迭代每一个mod
+            foreach (Mod mod in WAData.SimpleModArray)  //迭代每一个mod
             {
-                int CurLoc = (int)(mod.begin * AllData.DataLength); 
-                int ModLength = (int)(mod.ModDuration * AllData.DataLength);
+                int CurLoc = (int)(mod.begin * WAData.DataLength); 
+                int ModLength = (int)(mod.ModDuration * WAData.DataLength);
                 foreach(Session sess in mod.sessionList)
                 {
                     int SessEndLoc = CurLoc + (int)(sess.duration * ModLength);
@@ -121,7 +121,7 @@ namespace wt2
                 }
 
             }
-            AllData.yArray = new ArrayList(yValue);
+            WAData.yArray = new ArrayList(yValue);
             return false;
         }
     }

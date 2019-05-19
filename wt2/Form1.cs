@@ -35,7 +35,7 @@ namespace wt2
             //};
             
 
-            AllData.DataLength = Pview.Width;
+            WAData.DataLength = Pview.Width;
             return Pview.Width;
         }
         public void DrawModPoint(object sender, EventArgs e)
