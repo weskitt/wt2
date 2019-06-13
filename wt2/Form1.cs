@@ -36,16 +36,26 @@ namespace wt2
             
 
             WAData.DataLength = Pview.Width;
+            WAData.DataMax = Pview.Height/2;
             return Pview.Width;
         }
         public void DrawModPoint(object sender, EventArgs e)
         {
             var g = Pview.CreateGraphics();
             Pen pen = new Pen(Color.Green);
+            
 
             funcs.GenAnalogData(0);
-
+            PointF[] data = new PointF[WAData.DataLength];
+            double[] yValue = (double[])WAData.yArray.ToArray(typeof(double));
+            for (int i = 0; i < WAData.DataLength; i++)
+            {
+                data[i].X = i;
+                data[i].Y = (float)yValue[i] + (float)WAData.DataMax;//DataMax 图形居中
+            }
             g.Clear(Color.Black);//清楚画布
+            g.DrawLines(pen, data);
+            
         }
         private void Pview_Paint(object sender, PaintEventArgs e)
         {
