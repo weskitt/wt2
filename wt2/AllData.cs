@@ -72,9 +72,9 @@ namespace wt2
             });
             mod.sessionList.Add(sess = new Session
             {
-                BaseFactor = 1,
+                BaseFactor = -1,
                 duration = 0.5,
-                VariantArg = -0.07
+                VariantArg = 0
             });
             //~~~~~~~~~~~~~~~~~~两个mod~~~~~~~~~~~~~~~~~~~~~~
             Mod mod1 = new Mod
@@ -92,9 +92,9 @@ namespace wt2
             });
             mod1.sessionList.Add(sess = new Session
             {
-                BaseFactor =1,
+                BaseFactor =-1,
                 duration = 0.5,
-                VariantArg = 0.1
+                VariantArg = 0
             });
             
             WAData.SimpleModArray.Add(mod);
@@ -105,6 +105,10 @@ namespace wt2
             double[] yValue = new double[WAData.DataLength];
             //PointF[] pts = new PointF[WAData.DataLength];
 
+            //能量打嗝->
+            //宏观描述
+
+            //分段描述
             foreach (Mod mod in WAData.SimpleModArray)  //迭代每一个mod
             {
                 double bValue = 0;   //默认初始值
